@@ -4,9 +4,7 @@ import CovidTracker from './containers/CovidTracker';
 
 function App() {
   return (
-    <div className="App">
       <CovidTracker/>
-    </div>
   );
 }
 
