@@ -1,7 +1,7 @@
 import React from 'react';
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
-import { withStyles } from "@material-ui/core/styles";
+import {withStyles} from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Box from "@material-ui/core/Box";
 
@@ -15,10 +15,10 @@ const styles = {
 };
 
 const statCard = (props) => {
-    const { classes } = props;
+    const {classes} = props;
 
     return (
-        <Paper className={classes.root} elevation={4}>
+        <Paper className={classes.root} elevation={5}>
             <CardContent>
                 <Box mb={1}>
                     <Typography color="textSecondary" variant="h5">

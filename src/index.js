@@ -6,13 +6,14 @@ import * as serviceWorker from './serviceWorker';
 import axios from 'axios';
 import {createStore} from 'redux';
 import reducer from './store/reducer';
-import { Provider } from 'react-redux';
+import {Provider} from 'react-redux';
+
 const store = createStore(reducer);
 
 axios.defaults.baseURL = 'https://covid19.mathdro.id/api';
 
 axios.interceptors.response.use(response => {
-    console.log(response);
+    // console.log(response);
     return response;
 }, error => {
     console.log(error);
@@ -21,11 +22,9 @@ axios.interceptors.response.use(response => {
 });
 
 ReactDOM.render(
-    <React.StrictMode>
-        <Provider store={store}>
-            <App />
-        </Provider>
-    </React.StrictMode>,
+    <Provider store={store}>
+        <App/>
+    </Provider>,
     document.getElementById('root')
 );
 

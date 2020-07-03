@@ -1,22 +1,25 @@
-import React, { Component } from 'react';
-import { withStyles } from "@material-ui/core/styles";
+import React, {Component} from 'react';
+import {withStyles} from "@material-ui/core/styles";
 import CountrySelector from './CountrySelector'
 import axios from "axios";
-import * as actionTypes from "../../store/actions";
+import * as actionTypes from "../store/actions";
 import {connect} from "react-redux";
 import Grid from "@material-ui/core/Grid";
-import StatCards from "../StatCards";
+import StatCards from "./StatCards";
 import CountryChart from "./CountryChart";
 
 const styles = {
     root: {
         marginTop: '15px'
+    },
+    lastUpdate: {
+        color: 'gray'
     }
 }
 
 class CountryStats extends Component {
 
-    componentDidMount () {
+    componentDidMount() {
         this.getSelectedCountryStats();
     }
 
@@ -29,12 +32,12 @@ class CountryStats extends Component {
     }
 
     getSelectedCountryStats() {
-        const {selectedCountry, selectedCountryStats } = this.props;
+        const {selectedCountry, selectedCountryStats} = this.props;
 
         if (selectedCountry &&
             (!selectedCountryStats || (selectedCountryStats && selectedCountryStats.countryCode !== selectedCountry))) {
-            axios.get( '/countries/' + selectedCountry )
-                .then( response => {
+            axios.get('/countries/' + selectedCountry)
+                .then(response => {
                     response.data.countryCode = selectedCountry;
                     this.props.onFetchSelectedCountryStats(response.data);
                 });
@@ -42,7 +45,7 @@ class CountryStats extends Component {
     }
 
     render() {
-        const { classes, selectedCountryStats, countryLastUpdate } = this.props;
+        const {classes, selectedCountryStats, countryLastUpdate} = this.props;
 
         return (
 
@@ -67,7 +70,7 @@ class CountryStats extends Component {
                     <CountryChart data={selectedCountryStats}/>
                 </Grid>
 
-                <Grid item>
+                <Grid className={classes.lastUpdate} item>
                     Last Update: {new Date(countryLastUpdate).toLocaleString()}
                 </Grid>
             </Grid>
@@ -86,7 +89,10 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         onSetSelectedCountry: (country) => dispatch({type: actionTypes.SET_SELECTED_COUNTRY, payload: country}),
-        onFetchSelectedCountryStats: (stats) => dispatch({type: actionTypes.FETCH_SELECTED_COUNTRY_STATS, payload: stats})
+        onFetchSelectedCountryStats: (stats) => dispatch({
+            type: actionTypes.FETCH_SELECTED_COUNTRY_STATS,
+            payload: stats
+        })
     };
 }
 

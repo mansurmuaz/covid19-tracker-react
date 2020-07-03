@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import { withStyles } from "@material-ui/core/styles";
+import {withStyles} from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import axios from 'axios';
-import { connect } from 'react-redux'
+import {connect} from 'react-redux'
 import * as actionTypes from './../store/actions';
 import StatCards from "./StatCards";
 import WorldChart from "./WorldChart";
@@ -13,26 +13,29 @@ const styles = {
         textAlign: 'center',
         marginBottom: '40px',
         marginTop: '15px'
+    },
+    lastUpdate: {
+        color: 'gray'
     }
 }
 
 class WorldStats extends Component {
 
-    componentDidMount () {
+    componentDidMount() {
         this.getWorldStats();
         this.getWorldDailyData();
     }
 
     getWorldStats() {
-        axios.get( '/' )
-            .then( response => {
+        axios.get('/')
+            .then(response => {
                 this.props.onFetchWorldStats(response.data);
             });
     }
 
     getWorldDailyData() {
-        axios.get( '/daily' )
-            .then( response => {
+        axios.get('/daily')
+            .then(response => {
                 const dailyData = response.data.map(day => {
                     return {
                         totalCases: day.confirmed.total,
@@ -41,14 +44,13 @@ class WorldStats extends Component {
                         date: day.reportDate
                     }
                 })
-
                 this.props.onFetchWorldDailyData(dailyData);
             });
     }
 
 
     render() {
-        const { classes, worldStats, worldDailyData, worldLastUpdate } = this.props;
+        const {classes, worldStats, worldDailyData, worldLastUpdate} = this.props;
 
         return (
             <Grid container
@@ -59,7 +61,7 @@ class WorldStats extends Component {
                   spacing={3}>
 
                 <Grid item>
-                    <Typography variant="h4" color="textSecondary"> World Statistics</Typography>
+                    <Typography variant="h4" color="textSecondary">World Statistics</Typography>
                 </Grid>
                 <Grid item>
                     <StatCards stats={worldStats}/>
@@ -67,7 +69,7 @@ class WorldStats extends Component {
                 <Grid item>
                     <WorldChart data={worldDailyData}/>
                 </Grid>
-                <Grid item>
+                <Grid className={classes.lastUpdate} item>
                     Last Update: {new Date(worldLastUpdate).toLocaleString()}
                 </Grid>
             </Grid>

@@ -1,17 +1,9 @@
 import React from 'react';
-import { withStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import StatCard from "./StatCard";
 
-const styles = {
-    // root: {
-    //     textAlign: 'center',
-    //     verticalAlign: 'middle'
-    // }
-};
-
 const statCards = (props) => {
-    const { stats } = props;
+    const {stats} = props;
 
     return (
         <Grid container
@@ -38,4 +30,4 @@ const statCards = (props) => {
     )
 }
 
-export default withStyles(styles)(statCards);
+export default statCards;

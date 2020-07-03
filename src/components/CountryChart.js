@@ -1,38 +1,38 @@
 import React from 'react';
-import { PieChart, Pie, Legend, Cell } from 'recharts';
+import {PieChart, Pie, Legend, Cell} from 'recharts';
 
 const COLORS = ['#0088fe', '#c40000', '#328800'];
 
 const RADIAN = Math.PI / 180;
-const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
+const renderCustomizedLabel = ({cx, cy, midAngle, innerRadius, outerRadius, percent, index}) => {
     const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
-    const x  = cx + radius * Math.cos(-midAngle * RADIAN);
-    const y = cy  + radius * Math.sin(-midAngle * RADIAN);
+    const x = cx + radius * Math.cos(-midAngle * RADIAN);
+    const y = cy + radius * Math.sin(-midAngle * RADIAN);
 
     return (
-        <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} 	dominantBaseline="central">
+        <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
             {`${(percent * 100).toFixed(0)}%`}
         </text>
     );
 };
 
 const countryChart = (props) => {
-    const { data } = props;
+    const {data} = props;
 
     const pieData = [
-            {
-                name: 'Cases',
-                value: data?.confirmed.value
-            },
-            {
-                name: 'Deaths',
-                value: data?.deaths.value
-            },
-            {
-                name: 'Recovered',
-                value: data?.recovered.value
-            },
-        ]
+        {
+            name: 'Cases',
+            value: data?.confirmed.value
+        },
+        {
+            name: 'Deaths',
+            value: data?.deaths.value
+        },
+        {
+            name: 'Recovered',
+            value: data?.recovered.value
+        },
+    ]
 
 
     return (

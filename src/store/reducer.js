@@ -5,7 +5,7 @@ const initialState = {
     worldDailyData: null,
     worldLastUpdate: null,
     countries: null,
-    selectedCountry: 'TUR',
+    selectedCountry: 'USA',
     selectedCountryStats: null,
     countryLastUpdate: null
 }

@@ -1,34 +1,38 @@
-import React, { Component }from 'react'
-import { withStyles } from "@material-ui/core/styles";
+import React, {Component} from 'react'
+import {withStyles} from "@material-ui/core/styles";
 import FormControl from "@material-ui/core/FormControl";
-import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import axios from "axios";
-import * as actionTypes from "../../store/actions";
+import * as actionTypes from "../store/actions";
 import {connect} from "react-redux";
 
 const styles = {
     root: {
-        // textAlign: 'center',
-        // verticalAlign: 'middle'
+        display: 'inline'
     },
     select: {
         width: '300px'
+    },
+    span: {
+        fontSize: "25px",
+        fontWeight: '500',
+        marginRight: '15px',
+        color: 'gray'
     }
 };
 
 class CountrySelector extends Component {
 
-    componentDidMount () {
+    componentDidMount() {
         this.getCountryList();
     }
 
     getCountryList() {
         const storedCountries = localStorage.getItem('countries');
         if (!storedCountries) {
-            axios.get( '/countries' )
-                .then( response => {
+            axios.get('/countries')
+                .then(response => {
                     this.props.onFetchCountries(response.data.countries);
                 });
         } else {
@@ -36,14 +40,13 @@ class CountrySelector extends Component {
         }
     }
 
-
     render() {
-        const { classes, countries } = this.props;
+        const {classes, countries} = this.props;
         const countyList = countries?.filter((country) => country.iso3);
 
         return (
-            <FormControl variant="outlined" >
-                <InputLabel id="select-label">Countries</InputLabel>
+            <FormControl className={classes.root} variant="outlined">
+                <span className={classes.span}>Statistics for</span>
                 <Select
                     className={classes.select}
                     labelId="select-label"
@@ -63,7 +66,6 @@ class CountrySelector extends Component {
                 </Select>
             </FormControl>
         )
-
     }
 }
 
